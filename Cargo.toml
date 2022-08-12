@@ -12,6 +12,7 @@ spl-token = {version = "3.5.0", features = ["no-entrypoint"]}
 
 [features]
 test-bpf = []
+no-entrypoint = []
 
 [dev-dependencies]
 assert_matches = "1.4.0"
