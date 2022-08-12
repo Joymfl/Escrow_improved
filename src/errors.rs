@@ -9,6 +9,6 @@ pub enum EscrowErrors {
 
 impl From<EscrowErrors> for ProgramError {
     fn from(e: EscrowErrors) -> Self {
-        ProgramError::Custom((e as u32))
+        ProgramError::Custom(e as u32)
     }
 }
