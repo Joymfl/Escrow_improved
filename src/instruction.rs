@@ -3,6 +3,8 @@ use solana_program::program_error::ProgramError;
 use std::convert::TryInto;
 pub enum EscrowInstruction {
     /// [0] Sender Authority and Signer (Alice)
+    /// [1] Temp Token Account by Sender to be transferred over to EscrowAccount
+    /// [2] Sender's Token Account to receive token from trade
     InitEscrow { amount: u64 },
 }
 

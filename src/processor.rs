@@ -6,7 +6,7 @@ use solana_program::{
     pubkey::Pubkey,
 };
 
-use crate::instruction::{self, EscrowInstruction};
+use crate::instruction::EscrowInstruction;
 #[allow(unused_variables)]
 pub struct Processor;
 
