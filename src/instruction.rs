@@ -5,6 +5,9 @@ pub enum EscrowInstruction {
     /// [0] Sender Authority and Signer (Alice)
     /// [1] Temp Token Account by Sender to be transferred over to EscrowAccount
     /// [2] Sender's Token Account to receive token from trade
+    /// [3] Escrow Account
+    /// [4] Rent Sysvar
+    /// [5] Token Program
     InitEscrow { amount: u64 },
 }
 
