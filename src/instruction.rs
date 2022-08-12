@@ -2,6 +2,7 @@ use crate::errors::EscrowErrors::InvalidInstruction;
 use solana_program::program_error::ProgramError;
 use std::convert::TryInto;
 pub enum EscrowInstruction {
+    /// [0] Sender Authority and Signer (Alice)
     InitEscrow { amount: u64 },
 }
 
