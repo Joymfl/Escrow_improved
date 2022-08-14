@@ -3,13 +3,12 @@ use solana_program::{
     entrypoint::ProgramResult,
     msg,
     program_error::ProgramError,
-    // program_pack::{IsInitialized, Pack},
+    program_pack::{IsInitialized, Pack},
     pubkey::Pubkey,
     sysvar::{rent::Rent, Sysvar},
 };
 
-use crate::errors::EscrowErrors;
-use crate::instruction::EscrowInstruction;
+use crate::{errors::EscrowErrors, instruction::EscrowInstruction, state::Escrow};
 #[allow(unused_variables)]
 pub struct Processor;
 
@@ -57,7 +56,10 @@ impl Processor {
             return Err(EscrowErrors::NotRentExempt.into());
         }
 
-        // let mut escrow_info = Escrow::unpack_unchecked
+        let mut escrow_info = Escrow::unpack_unchecked(&escrow_account.try_borrow_data()?)?;
+        if escrow_info.is_initialized() {
+            return Err(ProgramError::AccountAlreadyInitialized);
+        }
         Ok(())
     }
 }

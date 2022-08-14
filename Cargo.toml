@@ -9,6 +9,7 @@ edition = "2021"
 solana-program = "1.11.5"
 thiserror = "1.0.32"
 spl-token = {version = "3.5.0", features = ["no-entrypoint"]}
+arrayref = "0.3.6"
 
 [features]
 test-bpf = []
