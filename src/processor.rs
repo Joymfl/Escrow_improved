@@ -26,6 +26,10 @@ impl Processor {
                 msg!("Instruction: InitEscrow");
                 Self::process_init_escrow(accounts, amount, program_id)
             }
+            EscrowInstruction::Exchange { amount } => {
+                msg!("Instruction: Exchange");
+                Self::process_exchange(accounts, amount, program_id)
+            }
         }
     }
 
@@ -92,5 +96,30 @@ impl Processor {
             ],
         )?;
         Ok(())
+    }
+
+    fn process_exchange(
+        accounts: &[AccountInfo],
+        amount: u64,
+        program_id: &Pubkey,
+    ) -> ProgramResult {
+        let account_info_iter = &mut accounts.iter();
+        let taker_account = next_account_info(account_info_iter)?;
+
+        if !taker_account.is_signer {
+            return Err(ProgramError::MissingRequiredSignature);
+        }
+        let taker_token_account_to_send = next_account_info(account_info_iter)?;
+        if *taker_token_account_to_send.owner != spl_token::id() {
+            return Err(ProgramError::IncorrectProgramId);
+        }
+        let taker_token_account_to_receive = next_account_info(account_info_iter)?;
+        let escrow_token_account = next_account_info(account_info_iter)?;
+        if escrow_token_account.owner != program_id {
+            return Err(ProgramError::IncorrectProgramId);
+        }
+
+        let initializer_account = next_account_info(account_info_iter)?;
+        Ok(()) // Placeholder
     }
 }
